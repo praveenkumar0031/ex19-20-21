@@ -1,0 +1,28 @@
+
+eksctl create cluster -f cluster.yaml
+
+aws eks list-addons `
+    --cluster-name devops-lab `
+    --region us-east-1
+
+eksctl utils associate-iam-oidc-provider `
+    --cluster devops-lab `
+    --region us-east-1 `
+    --approve
+
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+kubectl get pods -n kube-system
+
+kubectl get deployment metrics-server -n kube-system -o wide
+
+kubectl describe deployment metrics-server -n kube-system
+
+kubectl get apiservice
+
+
+helm template demo .
+helm lint .
+helm install demo .
+kubectl get deployments
+kubectl get pods
