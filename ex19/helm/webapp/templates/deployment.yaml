@@ -26,16 +26,27 @@ spec:
         - name: {{ include "webapp.name" . }}
 
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
           ports:
             - containerPort: {{ .Values.container.port }}
+
+          volumeMounts:
+            - name: html
+              mountPath: /var/www/html/index.php
+              subPath: index.php
+
           envFrom:
             - configMapRef:
                 name: {{ include "webapp.fullname" . }}-config
 
             - secretRef:
                 name: {{ include "webapp.fullname" . }}-secret
+
           resources:
 {{ toYaml .Values.resources | nindent 12 }}
+
+      volumes:
+        - name: html
+          configMap:
+            name: {{ include "webapp.fullname" . }}-html

@@ -65,4 +65,6 @@ kubectl logs -n kube-system aws-load-balancer-controller-dcf8758bc-xghfs
 kubectl api-resources | findstr ingress
 helm list -n kube-system
 
-kubectl get hpa -wv
+kubectl get hpa -w
+
+hey -n 10000 -c 200 http://k8s-default-demoweba-6d951cbb6c-909443611.us-east-1.elb.amazonaws.com
