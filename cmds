@@ -63,3 +63,6 @@ aws eks describe-cluster `
 kubectl logs -n kube-system aws-load-balancer-controller-dcf8758bc-xghfs
 
 kubectl api-resources | findstr ingress
+helm list -n kube-system
+
+kubectl get hpa -wv

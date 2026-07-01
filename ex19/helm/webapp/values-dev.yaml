@@ -1,0 +1,30 @@
+ingress:
+  enabled: true
+  className: alb
+
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /
+
+  hosts:
+    - host: ""
+      paths:
+        - path: /
+          pathType: Prefix
+
+        - path: /api
+          pathType: Prefix
+
+        - path: /admin
+          pathType: Prefix
+
+        - path: /dashboard
+          pathType: Prefix
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 50
