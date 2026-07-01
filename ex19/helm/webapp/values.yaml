@@ -29,11 +29,21 @@ secret:
   DB_USERNAME: admin
   DB_PASSWORD: password123
   JWT_SECRET: my-super-secret
-  
+
 ingress:
-  enabled: false
+  enabled: true
+
   className: alb
-  host: ""
+
+  annotations: {}
+
+  hosts:
+    - host: ""
+      paths:
+        - path: /
+          pathType: Prefix
+
+  tls: []
 
 autoscaling:
   enabled: false

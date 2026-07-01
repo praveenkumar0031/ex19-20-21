@@ -1,0 +1,9 @@
+clusterName: devops-lab
+
+region: us-east-1
+
+vpcId: vpc-07981f48d3aeda585  
+
+serviceAccount:
+  create: false
+  name: aws-load-balancer-controller
