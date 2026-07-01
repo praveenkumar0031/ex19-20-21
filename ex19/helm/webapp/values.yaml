@@ -22,10 +22,14 @@ resources:
 
 config:
   APP_ENV: dev
+  LOG_LEVEL: INFO
+  APP_NAME: webapp
 
 secret:
+  DB_USERNAME: admin
   DB_PASSWORD: password123
-
+  JWT_SECRET: my-super-secret
+  
 ingress:
   enabled: false
   className: alb

@@ -1,21 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: {{ include "webapp.fullname" . }}
   labels:
-    app: {{ include "webapp.name" . }}
+    app.kubernetes.io/name: {{ include "webapp.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
 
 spec:
   replicas: {{ .Values.replicaCount }}
 
   selector:
     matchLabels:
-      app: {{ include "webapp.name" . }}
+      app.kubernetes.io/name: {{ include "webapp.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
 
   template:
     metadata:
       labels:
-        app: {{ include "webapp.name" . }}
+        app.kubernetes.io/name: {{ include "webapp.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
 
     spec:
       containers:
@@ -27,6 +31,11 @@ spec:
 
           ports:
             - containerPort: {{ .Values.container.port }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "webapp.fullname" . }}-config
 
+            - secretRef:
+                name: {{ include "webapp.fullname" . }}-secret
           resources:
 {{ toYaml .Values.resources | nindent 12 }}

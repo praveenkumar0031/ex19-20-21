@@ -18,11 +18,18 @@ kubectl get deployment metrics-server -n kube-system -o wide
 
 kubectl describe deployment metrics-server -n kube-system
 
+kubectl edit svc metrics-server -n kube-system
+ then remove k8s/app in selector
+
 kubectl get apiservice
 
 
-helm template demo .
+helm template demo .  //show the rendered templates like plan
+
 helm lint .
 helm install demo .
+
+helm upgrade demo .
+
 kubectl get deployments
 kubectl get pods
