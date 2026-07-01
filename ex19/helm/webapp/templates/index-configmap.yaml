@@ -6,7 +6,19 @@ metadata:
 data:
   index.php: |
     <?php
-    echo "<h1>Hello from Kubernetes on Amazon EKS!</h1>";
+
+    if ($_SERVER['REQUEST_URI'] == '/stress') {
+
+        $start = microtime(true);
+
+        while (microtime(true) - $start < 5) {
+            sqrt(rand());
+        }
+
+        echo "CPU stress completed on pod: " . gethostname();
+        exit;
+    }
+
+    echo "<h1>Hello from Amazon EKS</h1>";
     echo "<p>Pod: " . gethostname() . "</p>";
-    echo "<p>Time: " . date('Y-m-d H:i:s') . "</p>";
     ?>

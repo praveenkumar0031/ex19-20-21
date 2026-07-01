@@ -67,4 +67,12 @@ helm list -n kube-system
 
 kubectl get hpa -w
 
-hey -n 10000 -c 200 http://k8s-default-demoweba-6d951cbb6c-909443611.us-east-1.elb.amazonaws.com
+& "C:\Program Files\k6\k6.exe" run load-test.js
+
+helm uninstall demo-webapp
+kubectl delete ingress demo-webapp-webapp
+
+eksctl delete iamserviceaccount \
+  --cluster devops-lab \
+  --namespace kube-system \eksctl delete cluster --name devops-lab --region us-east-1
+  --name aws-load-balancer-controller
